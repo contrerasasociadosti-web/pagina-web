@@ -1,0 +1,17 @@
+import { defineConfig, globalIgnores } from 'eslint/config';
+import eslintPluginAstro from 'eslint-plugin-astro';
+
+export default defineConfig([
+  // add more generic rule sets here, such as:
+  // js.configs.recommended,
+  ...eslintPluginAstro.configs.recommended,
+  {
+    rules: {
+      // override/add rules settings here, such as:
+      // "astro/no-set-html-directive": "error"
+      'no-unused-vars': 'error',
+      'sort-imports': 'error',
+    },
+  },
+  globalIgnores(['.astro/']),
+]);

@@ -1,0 +1,73 @@
+---
+import { Clock, Mail, MapPin, Phone } from '@lucide/astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import Card from '@/components/card/Card.astro';
+import ContactForm from '@/components/ContactForm.astro';
+import constants from '@/utils/constants';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section id="contact" class="py-20 bg-white">
+  <div class="container mx-auto px-4 lg:px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">{t('contact.title')}</h2>
+      <p class="text-xl text-slate-600 max-w-2xl mx-auto">
+        {t('contact.subtitle')}
+      </p>
+    </div>
+    <div class="grid lg:grid-cols-2 gap-12">
+      <div class="flex flex-col gap-y-2 h-full">
+        <Card class="p-6 border-primary-200">
+          <div class="flex items-center space-x-3 mb-3">
+            <Phone class="h-6 w-6 text-primary-600" />
+            <h4 class="font-semibold text-slate-800">{t('contact.card.phone')}</h4>
+          </div>
+          <p class="text-slate-600">
+            {constants.phoneNumber}
+          </p>
+        </Card>
+
+        <Card class="p-6 border-gray-200">
+          <div class="flex items-center space-x-3 mb-3">
+            <Mail class="h-6 w-6 text-primary-600" />
+            <h4 class="font-semibold text-slate-900">{t('contact.card.email')}</h4>
+          </div>
+          <p class="text-slate-600">
+            <a class="hover:text-primary-600" href="mailto:info@lawyercontreras.com">
+              {constants.email}
+            </a>
+          </p>
+        </Card>
+
+        <Card class="p-6 border-gray-200">
+          <div class="flex items-center space-x-3 mb-3">
+            <MapPin class="h-6 w-6 text-primary-600" />
+            <h4 class="font-semibold text-slate-900">{t('contact.card.address')}</h4>
+          </div>
+          <p class="text-slate-600">{constants.address}</p>
+          <p class="text-slate-600">{constants.location}</p>
+        </Card>
+
+        <Card class="p-6 border-gray-200">
+          <div class="flex items-center space-x-3 mb-3">
+            <Clock class="h-6 w-6 text-primary-600" />
+            <h4 class="font-semibold text-slate-900">{t('contact.card.hours')}</h4>
+          </div>
+          <p class="text-slate-600">{constants.hours}</p>
+          <p class="text-slate-600">{constants.hours2}</p>
+        </Card>
+      </div>
+      <ContactForm />
+    </div>
+  </div>
+  <div id="map" class="pt-10">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1632.652302320346!2d-86.76405847542271!3d21.129120909317635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDA3JzQ3LjciTiA4NsKwNDUnNDguOCJX!5e0!3m2!1ses-419!2smx!4v1755327991556!5m2!1ses-419!2smx"
+      class="w-4/6 h-96 mx-auto my-10 rounded-lg shadow-lg"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</section>

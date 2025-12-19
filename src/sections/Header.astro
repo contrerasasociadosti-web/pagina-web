@@ -1,0 +1,256 @@
+---
+import { Facebook, Instagram, Linkedin, Menu, Twitter, X } from '@lucide/astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+import Logo from '@/assets/logoContrerasMini.svg';
+import constants from '@/utils/constants';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<header class="border-b border-primary-200 bg-white/95 backdrop-blur-sm sticky top-0 z-50">
+  <div class="container mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
+    <a href="/">
+      <div class="flex items-center space-x-2">
+        <Logo class="size-14 fill-primary-500" />
+        <div>
+          <h2 class="text-xl font-bold text-primary-800">{constants.businessName}</h2>
+          <p class="text-xs text-primary-500">{constants.bussinessSubtitle}</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center space-x-8">
+      <a
+        href="#home"
+        class="text-sm font-medium text-primary-700 hover:text-primary-800 transition-colors"
+      >
+        {t('nav.home')}
+      </a>
+      <a
+        href="#services"
+        class="text-sm font-medium text-primary-700 hover:text-primary-800 transition-colors"
+      >
+        {t('nav.services')}
+      </a>
+      <a
+        href="#about"
+        class="text-sm font-medium text-primary-700 hover:text-primary-800 transition-colors"
+      >
+        {t('nav.about')}
+      </a>
+      <a
+        href="#contact"
+        class="text-sm font-medium text-primary-700 hover:text-primary-800 transition-colors"
+      >
+        {t('nav.contact')}
+      </a>
+      <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-2">
+          <a
+            href={constants.facebook}
+            target="_blank"
+            class="text-slate-600 hover:text-blue-600 transition-colors"
+          >
+            <Facebook class="h-4 w-4" />
+          </a>
+          <a
+            href={constants.x}
+            target="_blank"
+            class="text-slate-600 hover:text-blue-400 transition-colors"
+          >
+            <Twitter class="h-4 w-4" />
+          </a>
+          <a
+            href={constants.instagram}
+            target="_blank"
+            class="text-slate-600 hover:text-pink-600 transition-colors"
+          >
+            <Instagram class="h-4 w-4" />
+          </a>
+          <a
+            href={constants.linkedin}
+            target="_blank"
+            class="text-slate-600 hover:text-blue-700 transition-colors"
+          >
+            <Linkedin class="h-4 w-4" />
+          </a>
+        </div>
+        <LanguageSwitcher />
+        <button class="bg-primary-600 hover:bg-primary-700 text-white py-2 px-4 rounded-md"
+          >{t('nav.consultation')}</button
+        >
+      </div>
+    </nav>
+
+    <!-- Mobile menu button -->
+    <button
+      id="mobile-menu-button"
+      class="md:hidden p-2 rounded-md text-primary-700 hover:text-primary-800 hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500"
+      aria-label="Abrir menú"
+    >
+      <Menu id="hamburger-icon" class="h-6 w-6" />
+      <X id="close-icon" class="h-6 w-6 hidden" />
+    </button>
+  </div>
+</header>
+<!-- Mobile Navigation -->
+<div
+  id="mobile-menu"
+  class="h-full md:hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300"
+>
+  <div
+    class="absolute right-0 top-0 h-full w-80 max-w-[80vw] bg-white shadow-xl transform translate-x-full transition-transform duration-300"
+    id="mobile-menu-content"
+  >
+    <div class="flex items-center justify-between p-4 border-b border-primary-200">
+      <div class="flex items-center space-x-2">
+        <Logo class="size-10 fill-primary-500" />
+        <div>
+          <h2 class="text-lg font-bold text-primary-800">{constants.businessName}</h2>
+          <p class="text-xs text-primary-500">{constants.bussinessSubtitle}</p>
+        </div>
+      </div>
+      <button
+        id="mobile-menu-close"
+        class="p-2 rounded-md text-primary-700 hover:text-primary-800 hover:bg-primary-50"
+        aria-label="Cerrar menú"
+      >
+        <X class="h-6 w-6" />
+      </button>
+    </div>
+
+    <nav class="flex flex-col p-4 space-y-4">
+      <a
+        href="#home"
+        class="text-lg font-medium text-primary-700 hover:text-primary-800 transition-colors py-2 border-b border-primary-100"
+      >
+        {t('nav.home')}
+      </a>
+      <a
+        href="#services"
+        class="text-lg font-medium text-primary-700 hover:text-primary-800 transition-colors py-2 border-b border-primary-100"
+      >
+        {t('nav.services')}
+      </a>
+      <a
+        href="#about"
+        class="text-lg font-medium text-primary-700 hover:text-primary-800 transition-colors py-2 border-b border-primary-100"
+      >
+        {t('nav.about')}
+      </a>
+      <a
+        href="#contact"
+        class="text-lg font-medium text-primary-700 hover:text-primary-800 transition-colors py-2 border-b border-primary-100"
+      >
+        {t('nav.contact')}
+      </a>
+
+      <div class="pt-4">
+        <LanguageSwitcher />
+      </div>
+
+      <button
+        class="bg-primary-600 hover:bg-primary-700 text-white py-3 px-4 rounded-md text-lg font-medium mt-4"
+      >
+        {t('nav.consultation')}
+      </button>
+
+      <div class="flex items-center justify-center space-x-6 pt-6 border-t border-primary-200">
+        <a
+          href={constants.facebook}
+          target="_blank"
+          class="text-slate-600 hover:text-blue-600 transition-colors"
+        >
+          <Facebook class="h-6 w-6" />
+        </a>
+        <a
+          href={constants.x}
+          target="_blank"
+          class="text-slate-600 hover:text-blue-400 transition-colors"
+        >
+          <Twitter class="h-6 w-6" />
+        </a>
+        <a
+          href={constants.instagram}
+          target="_blank"
+          class="text-slate-600 hover:text-pink-600 transition-colors"
+        >
+          <Instagram class="h-6 w-6" />
+        </a>
+        <a
+          href={constants.linkedin}
+          target="_blank"
+          class="text-slate-600 hover:text-blue-700 transition-colors"
+        >
+          <Linkedin class="h-6 w-6" />
+        </a>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuContent = document.getElementById('mobile-menu-content');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    function openMenu() {
+      mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+      mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+      mobileMenuContent.classList.remove('translate-x-full');
+      mobileMenuContent.classList.add('translate-x-0');
+      hamburgerIcon.classList.add('hidden');
+      closeIcon.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+      mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+      mobileMenuContent.classList.remove('translate-x-0');
+      mobileMenuContent.classList.add('translate-x-full');
+      hamburgerIcon.classList.remove('hidden');
+      closeIcon.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // Toggle menu when clicking the mobile button
+    mobileMenuButton.addEventListener('click', function () {
+      if (mobileMenu.classList.contains('opacity-0')) {
+        openMenu();
+      } else {
+        closeMenu();
+      }
+    });
+
+    // Close menu when clicking the close button
+    mobileMenuClose.addEventListener('click', closeMenu);
+
+    // Close menu when clicking outside the menu content
+    mobileMenu.addEventListener('click', function (e) {
+      if (e.target === mobileMenu) {
+        closeMenu();
+      }
+    });
+
+    // Close menu when clicking on navigation links
+    const mobileNavLinks = mobileMenuContent.querySelectorAll('a[href^="#"]');
+    mobileNavLinks.forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !mobileMenu.classList.contains('opacity-0')) {
+        closeMenu();
+      }
+    });
+  });
+</script>

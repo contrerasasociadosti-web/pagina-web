@@ -1,0 +1,64 @@
+---
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import { CheckCircle } from '@lucide/astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section id="about" class="py-20 bg-primary-50">
+  <div class="container mx-auto px-4 lg:px-6">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <img
+          src="/images/scale.webp"
+          alt="Oficina de Contreras y Asociados"
+          width={600}
+          height={500}
+          class="rounded-lg shadow-lg"
+        />
+      </div>
+      <div class="space-y-6">
+        <div>
+          <h2 class="text-3xl lg:text-4xl font-bold text-primary-800 mb-4">
+            {t('about.title')}
+          </h2>
+          <p class="text-xl text-primary-700 mb-6">
+            {t('about.description')}
+          </p>
+        </div>
+        <div class="space-y-4">
+          <div class="flex items-start space-x-3">
+            <CheckCircle class="h-6 w-6 text-green-600 mt-1 flex-shrink-0" />
+            <div>
+              <h4 class="font-semibold text-slate-900">{t('about.experience.title')}</h4>
+              <p class="text-slate-600">
+                {t('about.experience.text')}
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start space-x-3">
+            <CheckCircle class="h-6 w-6 text-green-600 mt-1 flex-shrink-0" />
+            <div>
+              <h4 class="font-semibold text-slate-900">{t('about.personalized.title')}</h4>
+              <p class="text-slate-600">
+                {t('about.personalized.text')}
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start space-x-3">
+            <CheckCircle class="h-6 w-6 text-green-600 mt-1 flex-shrink-0" />
+            <div>
+              <h4 class="font-semibold text-slate-900">{t('about.results.title')}</h4>
+              <p class="text-slate-600">
+                {t('about.results.text')}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

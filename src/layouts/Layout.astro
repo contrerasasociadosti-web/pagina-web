@@ -1,0 +1,126 @@
+---
+import '@/styles/global.css';
+import constants from '@/utils/constants';
+import { getLangFromUrl } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: string;
+  siteName?: string;
+}
+
+const {
+  title = 'Landing Page',
+  description = 'Despacho de abogados especializado en derecho penal, civil, familiar y corporativo. Más de 20 años defendiendo sus derechos con profesionalismo e integridad.',
+  image = '/images/mainImage.webp',
+  type = 'website',
+  siteName = 'Lic. Contreras - Despacho de Abogados',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+// Localized service types based on language
+const serviceTypes = {
+  es: ['Derecho Penal', 'Derecho Civil', 'Derecho Familiar', 'Derecho Corporativo'],
+  en: ['Criminal Law', 'Civil Law', 'Family Law', 'Corporate Law'],
+};
+
+// Schema markup for legal service
+const schemaMarkup = {
+  '@context': 'https://schema.org',
+  '@type': ['LegalService', 'Attorney'],
+  name: constants.businessName,
+  alternateName: constants.bussinessSubtitle,
+  description: description,
+  url: canonicalURL,
+  logo: new URL('/favicon.svg', Astro.site),
+  image: new URL(image, Astro.site),
+  telephone: constants.phoneNumber,
+  email: constants.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: constants.address,
+    addressLocality: 'Cancún',
+    addressRegion: 'Quintana Roo',
+    addressCountry: 'MX',
+    postalCode: '77500',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: '21.1619',
+    longitude: '-86.8515',
+  },
+  openingHours: ['Mo-Fr 09:00-18:00', 'Sa 09:00-14:00'],
+  areaServed: {
+    '@type': 'State',
+    name: 'Quintana Roo',
+  },
+  serviceType: serviceTypes[lang] || serviceTypes.es,
+  priceRange: '$$',
+  sameAs: [constants.facebook, constants.instagram, constants.linkedin],
+};
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={constants.businessName} />
+    <meta name="robots" content="index, follow" />
+    <meta name="content-language" content={lang} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Geo Meta Tags for Local SEO -->
+    <meta name="geo.region" content="MX-QROO" />
+    <meta name="geo.placename" content="Cancún, Quintana Roo" />
+    <meta name="geo.position" content="21.1619;-86.8515" />
+    <meta name="ICBM" content="21.1619, -86.8515" />
+
+    <!-- Business Contact Info -->
+    <meta name="contact" content={constants.email} />
+    <meta name="reply-to" content={constants.email} />
+
+    <!-- Performance Optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" href={new URL(image, Astro.site)} as="image" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content={lang === 'es' ? 'es_MX' : 'en_US'} />
+    <meta property="business:contact_data:street_address" content={constants.address} />
+    <meta property="business:contact_data:locality" content="Cancún" />
+    <meta property="business:contact_data:region" content="Quintana Roo" />
+    <meta property="business:contact_data:postal_code" content="77500" />
+    <meta property="business:contact_data:country_name" content="México" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.site)} />
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(schemaMarkup)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

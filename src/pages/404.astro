@@ -1,0 +1,215 @@
+---
+import { ArrowLeft, Home, Mail, Phone, Scale, Search } from '@lucide/astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import Card from '@/components/card/Card.astro';
+import CardContent from '@/components/card/CardContent.astro';
+import Layout from '@/layouts/Layout.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title={t('404.title')} description="404 - Page Not Found">
+  <div class="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100 flex flex-col">
+    {/* Header simplificado */}
+    <header class="border-b border-primary-200 bg-white/95 backdrop-blur-sm">
+      <div class="container mx-auto px-4 lg:px-6 h-16 flex items-center">
+        <a href="/" class="flex items-center space-x-2">
+          <Scale class="h-8 w-8 text-primary-600" />
+          <div>
+            <h1 class="text-xl font-bold text-primary-800">Contreras y Asociados</h1>
+            <p class="text-xs text-primary-500">Abogados</p>
+          </div>
+        </a>
+      </div>
+    </header>
+
+    {/* Contenido principal */}
+    <main class="flex-1 flex items-center justify-center px-4 py-16">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Contenido de texto */}
+          <div class="space-y-8">
+            <div class="space-y-4">
+              <div
+                class="inline-flex items-center justify-center w-20 h-20 bg-primary-100 rounded-full mb-6"
+              >
+                <Search class="h-10 w-10 text-primary-600" />
+              </div>
+              <h1 class="text-6xl lg:text-8xl font-bold text-primary-800">404</h1>
+              <h2 class="text-2xl lg:text-3xl font-bold text-primary-700 mb-4">{t('404.title')}</h2>
+              <p class="text-lg text-primary-600 leading-relaxed max-w-md mx-auto lg:mx-0">
+                {t('404.description')}
+              </p>
+            </div>
+
+            {/* Botones de acción */}
+            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <button class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3">
+                <a href="/">
+                  <Home class="mr-2 h-5 w-5" />
+                  {t('404.home')}
+                </a>
+              </button>
+              <button
+                class="border-primary-400 text-primary-700 hover:bg-primary-50 px-8 py-3 bg-transparent"
+              >
+                <span>
+                  <ArrowLeft class="mr-2 h-5 w-5" />
+                  {t('404.back')}
+                </span>
+              </button>
+            </div>
+
+            {/* Enlaces rápidos */}
+            <div class="pt-8">
+              <p class="text-sm text-primary-500 mb-4">{t('404.help')}</p>
+              <div class="flex flex-wrap gap-2 justify-center lg:justify-start">
+                <a
+                  href="/#servicios"
+                  class="text-sm bg-white border border-primary-200 text-primary-700 px-4 py-2 rounded-full hover:bg-primary-50 transition-colors"
+                >
+                  {t('404.services')}
+                </a>
+                <a
+                  href="/#nosotros"
+                  class="text-sm bg-white border border-primary-200 text-primary-700 px-4 py-2 rounded-full hover:bg-primary-50 transition-colors"
+                >
+                  {t('404.about')}
+                </a>
+                <a
+                  href="/#contacto"
+                  class="text-sm bg-white border border-primary-200 text-primary-700 px-4 py-2 rounded-full hover:bg-primary-50 transition-colors"
+                >
+                  {t('404.contact')}
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Imagen ilustrativa */}
+          <div class="relative">
+            <div class="relative">
+              <img
+                src="/images/scale.webp"
+                alt="Balanza de la justicia - Página no encontrada"
+                width={500}
+                height={400}
+                class="rounded-lg shadow-lg"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-primary-600/20 to-transparent rounded-lg"
+              >
+              </div>
+            </div>
+
+            {/* Tarjeta flotante con información de contacto */}
+            <Card class="absolute -bottom-6 -left-6 bg-white border-primary-200 shadow-xl">
+              <CardContent class="p-6">
+                <h3 class="font-semibold text-primary-800 mb-3">{t('404.legal_help')}</h3>
+                <div class="space-y-2 text-sm">
+                  <div class="flex items-center space-x-2 text-primary-600">
+                    <Phone class="h-4 w-4" />
+                    <span>+52 (55) 1234-5678</span>
+                  </div>
+                  <div class="flex items-center space-x-2 text-primary-600">
+                    <Mail class="h-4 w-4" />
+                    <span>info@contrerasasociados.com</span>
+                  </div>
+                </div>
+                <button class="w-full mt-4 bg-primary-600 hover:bg-primary-700 text-white">
+                  <a href="/#contacto">{t('404.free_consultation')}</a>
+                </button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Sección de servicios destacados */}
+        <div class="mt-20 pt-12 border-t border-primary-200">
+          <h3 class="text-xl font-semibold text-primary-800 mb-8">{t('404.specialties')}</h3>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card class="group hover:shadow-lg transition-all duration-300 border-primary-200">
+              <CardContent class="p-6 text-center">
+                <div
+                  class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary-200 transition-colors"
+                >
+                  <Scale class="h-6 w-6 text-primary-600" />
+                </div>
+                <h4 class="font-semibold text-primary-800 mb-2">{t('services.criminal.title')}</h4>
+                <p class="text-sm text-primary-600">Defensa especializada</p>
+              </CardContent>
+            </Card>
+
+            <Card class="group hover:shadow-lg transition-all duration-300 border-primary-200">
+              <CardContent class="p-6 text-center">
+                <div
+                  class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors"
+                >
+                  <Scale class="h-6 w-6 text-blue-600" />
+                </div>
+                <h4 class="font-semibold text-slate-800 mb-2">{t('services.civil.title')}</h4>
+                <p class="text-sm text-slate-600">Asesoría integral</p>
+              </CardContent>
+            </Card>
+
+            <Card class="group hover:shadow-lg transition-all duration-300 border-primary-200">
+              <CardContent class="p-6 text-center">
+                <div
+                  class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-200 transition-colors"
+                >
+                  <Scale class="h-6 w-6 text-green-600" />
+                </div>
+                <h4 class="font-semibold text-slate-800 mb-2">{t('services.family.title')}</h4>
+                <p class="text-sm text-slate-600">Acompañamiento profesional</p>
+              </CardContent>
+            </Card>
+
+            <Card class="group hover:shadow-lg transition-all duration-300 border-primary-200">
+              <CardContent class="p-6 text-center">
+                <div
+                  class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-200 transition-colors"
+                >
+                  <Scale class="h-6 w-6 text-purple-600" />
+                </div>
+                <h4 class="font-semibold text-slate-800 mb-2">{t('services.corporate.title')}</h4>
+                <p class="text-sm text-slate-600">Asesoría empresarial</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    {/* Footer simplificado */}
+    <footer class="bg-primary-800 text-white py-8">
+      <div class="container mx-auto px-4 lg:px-6">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <div class="flex items-center space-x-2">
+            <Scale class="h-6 w-6 text-white" />
+            <div>
+              <h3 class="font-bold">Contreras y Asociados</h3>
+              <p class="text-xs text-primary-200">Abogados</p>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-6 text-sm">
+            <a href="/" class="text-primary-200 hover:text-white transition-colors">
+              {t('nav.home')}
+            </a>
+            <a href="/#servicios" class="text-primary-200 hover:text-white transition-colors">
+              {t('nav.services')}
+            </a>
+            <a href="/#contacto" class="text-primary-200 hover:text-white transition-colors">
+              {t('nav.contact')}
+            </a>
+          </div>
+
+          <div class="text-sm text-primary-300">
+            © {new Date().getFullYear()} Contreras y Asociados
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</Layout>

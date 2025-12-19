@@ -1,0 +1,8 @@
+---
+// props
+const { class: className } = Astro.props;
+---
+
+<div class={`bg-white rounded-lg border border-primary-200 ${className}`}>
+  <slot />
+</div>

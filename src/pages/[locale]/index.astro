@@ -1,0 +1,40 @@
+---
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import About from '@/sections/About.astro';
+import Contact from '@/sections/Contact.astro';
+import Footer from '@/sections/Footer.astro';
+import Header from '@/sections/Header.astro';
+import Hero from '@/sections/Hero.astro';
+import Layout from '@/layouts/Layout.astro';
+import Philosophy from '@/sections/Philosophy.astro';
+import Services from '@/sections/Services.astro';
+import WhatsappFlottingButton from '@/components/WhatsappFlottingButton.astro';
+import constants from '@/utils/constants';
+import { ui } from '@/i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+export function getStaticPaths() {
+  return Object.keys(ui).map((lang) => ({ params: { locale: lang } }));
+}
+---
+
+<Layout
+  title={`${t('hero.title')} - ${constants.businessName}`}
+  description={t('hero.description')}
+  image="/images/mainImage.webp"
+  type="website"
+  siteName="Lic. Contreras - Despacho de Abogados"
+>
+  <Header />
+  <main>
+    <Hero />
+    <Services />
+    <About />
+    <Philosophy />
+    <Contact />
+  </main>
+  <Footer />
+  <WhatsappFlottingButton />
+</Layout>

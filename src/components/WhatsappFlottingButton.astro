@@ -1,0 +1,26 @@
+---
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import Whatsapp from '@/assets/whatsapp.svg';
+import constants from '@/utils/constants';
+import { getWhatsappUrl } from '@/utils/whatsappApi';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const whatsappUrl = getWhatsappUrl(constants.phoneNumber, t('whatsapp.message'));
+---
+
+<a
+  href={whatsappUrl}
+  rel="noopener noreferrer"
+  target="_blank"
+  aria-label={t('whatsapp.button')}
+  class="fixed bottom-0 right-0 mr-8 mb-8 size-16 bg-[#25d366] hover:bg-[#41c973] p-3 rounded-full hover:scale-110 transition-all duration-300 group"
+>
+  <Whatsapp />
+  <span
+    class="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-primary-800 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+  >
+    {t('whatsapp.button')}
+  </span>
+</a>

@@ -1,0 +1,44 @@
+---
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import { Globe } from '@lucide/astro';
+import { languages } from '@/i18n/ui';
+
+const currentPath = Astro.url.pathname; // /en/about
+const currentLang = `/${Astro.currentLocale}/`; // /en/
+
+const items = Object.entries(languages).map(([lang, label]) => {
+  const newPath = currentPath.replace(currentLang, `/${lang}/`);
+  return {
+    value: newPath,
+    label,
+    selected: newPath === currentLang,
+  };
+});
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<div class="flex items-center gap-2">
+  <Globe class="size-4 text-primary-600" />
+  <select
+    class="bg-transparent border-none text-sm text-primary-700 focus:outline-none cursor-pointer"
+    aria-label={t('lang.select')}
+    id="language-switcher"
+    value={currentLang}
+  >
+    {
+      items.map(({ value, label, selected }) => (
+        <option selected={selected} value={value}>
+          {label}
+        </option>
+      ))
+    }
+  </select>
+</div>
+
+<script is:inline>
+  document.getElementById('language-switcher').addEventListener('change', (event) => {
+    window.location.pathname = event.target.value;
+  });
+</script>
